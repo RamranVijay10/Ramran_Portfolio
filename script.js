@@ -1,32 +1,3 @@
-// const resumeTab = document.querySelector('.resume-tabs')
-// const resumePortfolioTabBtns= resumeTab.querySelector(".tab-btn")
-// const resumeTabContents = document.querySelector('.resume-tab-content')
-
-// let resumeTabNav = function(resumeTabClick){
-//     resumeTabContents.forEach(function (resumeTabContent) {
-//         resumeTabContents[resumeTabClick].style.display = 'none'
-//         resumeTabContents[resumeTabClick].classList.add('active')
-
-//     });
-
-//     resumePortfolioTabBtns.forEach((resumePortfolioTabBtn)=>{
-//         resumePortfolioTabBtn.classList.remove('active')
-//     })
-
-//     resumeTabContents[resumeTabClick].style.display='flex'
-// setTimeout(()=>{
-
-//     //     resumeTabContents[resumeTabClick].classList.add('active')
-// },100)
-//     resumePortfolioTabBtns[resumeTabClick].classList.add('active')
-// }
-
-// resumePortfolioTabBtns.forEach(function(resumePortfolioTabBtn, i){
-//     resumePortfolioTabBtn.addEventListener("click", ()=>{
-//         resumeTabNav(i)
-//     })
-// })
-
 // ...existing code...
 const resumeTab = document.querySelector(".resume-tabs");
 const resumePortfolioTabBtns = resumeTab.querySelectorAll(".tab-btn");
@@ -51,37 +22,6 @@ resumePortfolioTabBtns.forEach((resumePortfolioTabBtn, i) => {
 });
 
 resumeTabNav(0);
-
-// const serviceCardsWithModal = document.querySelectorAll(
-//   ".service-container .card-with-modal",
-// );
-
-// serviceCardsWithModal.forEach((cardWithModal) => {
-//   const serviceCard = cardWithModal.querySelector(".service-card");
-//   const serviceBackdrop = cardWithModal.querySelector(
-//     ".service-modal-backdrop",
-//   );
-//   const modalCloseBtn = cardWithModal.querySelector(".modal-close-btn");
-//   const serviceModal = cardWithModal.querySelector(".service-modal");
-
-//   serviceCard.addEventListener("click", () => {
-//     serviceBackdrop.style.display = "flex";
-
-//     setTimeout(() => {
-//       serviceBackdrop.classList.add("active");
-//       serviceModal.classList.add("active");
-//     }, 100);
-//   });
-
-//   modalCloseBtn.addEventListener("click", () => {
-//     serviceBackdrop.classList.remove("active");
-//     serviceModal.classList.remove("active");
-
-//     setTimeout(() => {
-//       serviceBackdrop.style.display = "none";
-//     }, 500);
-//   });
-// });
 
 // Service
 
@@ -474,3 +414,5 @@ themeBtn.addEventListener("click", () => {
   themeBtn.classList.toggle("active-sun-icon", isLightTheme);
   localStorage.setItem("theme", isLightTheme ? "light-theme" : "dark-theme");
 });
+
+
