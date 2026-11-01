@@ -19,6 +19,26 @@
     />
   </head>
   <body>
+    <!-- Loading Screen -->
+    <div class="loader-overlay" id="loaderOverlay">
+      <div class="loader-content">
+        <div class="loader-logo">
+          <span class="loader-name">Ramran</span>
+          <span class="loader-dot-anim"></span>
+        </div>
+        <div class="loader-tagline">
+          <span class="loader-prefix">—&nbsp;</span>
+          <span class="loader-text" id="loaderText">Portfolio</span>
+        </div>
+        <div class="loader-bar-track">
+          <div class="loader-bar" id="loaderBar"></div>
+        </div>
+        <div class="loader-dots">
+          <span></span><span></span><span></span>
+        </div>
+      </div>
+    </div>
+
     <!-- Customize cursor -->
     <div class="cursor">
       <div class="cursor-dot"></div>
@@ -1223,5 +1243,67 @@
     <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 
     <script src="script.js"></script>
+
+    <!-- Loading Screen Logic (first-visit only) -->
+    <script>
+      (() => {
+        const overlay = document.getElementById("loaderOverlay");
+        const bar     = document.getElementById("loaderBar");
+        const textEl  = document.getElementById("loaderText");
+
+        if (!overlay) return;
+
+        // ── Skip loader on reload / revisit within the same session ──
+        if (sessionStorage.getItem("hasVisited")) {
+          overlay.remove();
+          return;
+        }
+        sessionStorage.setItem("hasVisited", "1");
+
+        // ── Tagline cycling ──
+        const words = ["Portfolio", "Full-Stack Developer", "MERN Developer"];
+        let wordIndex = 0;
+
+        const cycleWord = setInterval(() => {
+          textEl.classList.add("fade-out");
+          setTimeout(() => {
+            wordIndex = (wordIndex + 1) % words.length;
+            textEl.textContent = words[wordIndex];
+            textEl.classList.remove("fade-out");
+            textEl.classList.add("fade-in");
+            setTimeout(() => textEl.classList.remove("fade-in"), 350);
+          }, 350);
+        }, 1400);
+
+        // ── Progress bar ──
+        let progress = 0;
+        const barTimer = setInterval(() => {
+          const inc = progress < 40 ? 8 : progress < 70 ? 4 : progress < 85 ? 1.5 : 0;
+          if (inc > 0) {
+            progress = Math.min(progress + inc, 85);
+            bar.style.width = `${progress}%`;
+          }
+        }, 120);
+
+        // ── Dismiss ──
+        const dismiss = () => {
+          clearInterval(cycleWord);
+          clearInterval(barTimer);
+          bar.style.width = "100%";
+          setTimeout(() => {
+            overlay.classList.add("hidden");
+            overlay.addEventListener("transitionend", () => overlay.remove(), { once: true });
+          }, 400);
+        };
+
+        if (document.readyState === "complete") {
+          setTimeout(dismiss, 600);
+        } else {
+          window.addEventListener("load", () => setTimeout(dismiss, 400));
+          // Safety: never block for more than 5 s
+          setTimeout(dismiss, 5000);
+        }
+      })();
+    </script>
   </body>
 </html>
